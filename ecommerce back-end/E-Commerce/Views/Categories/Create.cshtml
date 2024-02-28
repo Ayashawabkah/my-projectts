@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Category</h4>
+<hr />   <!-- create line -->
+<div class="row">     <!-- bootstrap-->
+    <div class="col-md-4">   <!-- bootstrap contain of 12 coulumn-->
+        
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+
+            <div class="form-group">
+                <label class="control-label"> Name </label>
+                <input id="Name" class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label"> Image</label>
+                <input id="Image" class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input id="btnSave" type="button" value="Create" class="btn btn-primary" /> 
+                <!-- when click on Create  give me the name and image and put them in data base -->
+            </div>
+       
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#btnSave").click(function () {
+              
+                var formData= { 
+                    Name: $("#Name").val() ,      // same as json file data format
+                    Image: $("#Image").val()      // create one object with more than one var 
+                                                  // to enhance performance
+                };                               
+
+
+                $.ajax({
+                    url: "/api/category/create1",
+                    type: "POST",
+                    data: JSON.stringify(formData), // means convert from json to string
+                    contentType: "application/json" ,// because of converting befor to ensure it
+                    dataType: "json",  // data in the url almost always json
+                    success: function () {
+                        alert("Data added successfully");
+                        window.location.href = "/Categories/Index"; // to go directly after adding for this location
+                    }
+                });
+
+            });
+        });
+    </script>
+}

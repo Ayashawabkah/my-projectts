@@ -1,0 +1,90 @@
+﻿@model E_Commerce.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input id="Id" asp-for="Id" type="hidden" readonly class="form-control" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input id="name" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input id="image" asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input id="btnSave" type="button" value="Save" class="btn btn-primary" />
+            </div>
+     
+    </div>
+</div>
+
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+@section scripts {
+    <script>
+
+
+
+
+
+        $(document).on("click", "#btnSave", function () {
+            // var btn = $(this);
+
+
+            var formData = {
+                Id: $("#Id").val(),
+                Name: $("#name").val(),      // same as json file data format
+                Image: $("#image").val()      // create one object with more than one var
+                // to enhance performance
+            };
+
+            $.ajax({
+
+                url: "/api/category/",
+                type: "PUT",
+                dataType: "json",
+                data: JSON.stringify(formData),
+                contentType: "application/json",
+                success: function (data) {               // parents→ delete all of it (exp: <tr> *** </tr>)
+                    alert("Modified data edited successfully")          // parent→ delet just the body of it(exp: *** )
+                    window.location.href = "/Categories/Index";
+                },
+
+                error: function () {
+                    alert("Error");
+                }
+
+            });
+        });
+
+
+
+    </script>
+}

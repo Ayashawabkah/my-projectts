@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="row">
+    <div class="col-md-6">
+    </div>
+    
+    <div class="col-md-6 float-end">
+        <a class="btn btn-primary"
+        asp-action="create" asp-controller="categories">  create new </a>
+    </div>
+
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Image</th>           
+        </tr>
+
+    </thead>
+
+
+
+
+
+
+
+    <tbody>
+
+
+    </tbody>
+
+</table>
+
+
+
+
+
+
+
+
+@* <input type="text" id="txt" class="form-control"/>
+
+<br />
+<button id="btnMSG" class"btn btn-primary"> show message </button>
+
+
+<h1 id="h">Index</h1>
+<h2>Welcome to tuned application</h2>
+
+<button id="hide">Hide </button>
+<button id="show">Show </button>
+<button id="toggle">Toggle </button>
+<button id="fadein">Fadein </button>
+<button id="fadeout">Fadeout </button>
+<button id="fadetoggle">Fadetoggle </button>
+
+<select>
+    <option value="enable">Enabled</option>
+    <option value="disable">Disabled</option>
+    <option value="msg">show message</option>
+
+</select> *@
+
+
+
+
+@section Scripts{
+   <script>
+       $(document).ready(function() {
+           $.ajax({  // is for add an action without need for reload the page
+               url: "/api/category",
+               type: "GET",
+               dataType: "json",  // same as "xml"
+               success:function(data){  // will excute when status = 200 successfully
+                            //then it makes a loop on the data to put it in the table
+                  $.each(data, function (index, value) { // a loop because 
+                                                         //there is more than one data
+                      $("table tbody").append("<tr /* id='tr' */ >"+
+                        "<td>" + value.name + "</td>"+
+                        "<td><img src='~/"+ value.image +"' /> </td>" + 
+                        "<td><button data-catsid='"+value.id+"'   id='btnDelete' class='btn btn-danger'> Delete </button></td>" +
+                            "<td><a  href='/Categories/Edit/"+value.id+"'   ' data-catsid= '" + value.id + "' id='btnEdit' class='btn btn-primary'> Edit </a></td>" +
+                      "</tr>");        //// + to concatinate string with value
+                  });
+               } ,
+               error:function(){
+                   alert("Error");
+               }
+
+           });
+
+
+           // // $("#btnDelete").click(funcyion() {
+           // //     alert($(this).data("catsid"));
+           // // });
+
+
+
+
+
+            $(document).on("click", "#btnDelete", function () { //(document).on( action , id name , function )
+                //use it for repetetive ids to go on all of them
+                var btn = $(this);
+                $.ajax({
+
+                    url: "/api/category/" + btn.data("catsid"),
+                    type: "DELETE",
+                    dataType: "json",
+
+                    success: function (data) {               // parents→ delete all of it (exp: <tr> *** </tr>)
+                        btn.parents("#tr").remove();          // parent→ delet just the body of it(exp: *** )
+
+                    },
+
+                    error: function () {
+                        alert("Error");
+                    }
+
+                });
+            });
+
+
+
+
+
+           $(document).on("click", "#btnEdit", function () {
+               var btn = $(this);
+               window.location.href = " /Categories/Edit/" + btn.data("catsid");
+           });
+            // //     $.ajax({
+
+            // //         url: "/api/category/" + btn.data("catsid"),
+            // //         type: "GET",
+            // //         dataType: "json",
+
+            // //         success: function (data) {              
+            // //            window.location.href = " /Categories/Edit/" + btn.data("catsid")        
+
+            // //         },
+
+            // //         error: function () {
+            // //             alert("Error");
+            // //         }
+
+            // //     });
+            // // });
+
+
+
+
+
+
+
+
+
+
+       });
+
+
+   </script>
+
+}
+
+
+
+
+
+
+
+@* @* @section Scripts
+{
+    <script>
+        // // $(document).ready(function ()  //document anything in the body called document
+        // // {
+        // //     $("#btnMSG").click(function () {
+        // //         alert( $("#txt").val() ); // alert is for the pop up messge when attempt to the page
+        // //     });
+        // // });
+
+
+
+
+        // // $(document).ready(function ()  // document anything in the body called document
+        // // {
+        // //     $("#btnMSG").click(function () {
+        // //         alert($("h1").html()) ; // // alert is for the pop up messge when attempt to the page
+        // //     });
+        // // });
+
+
+
+
+
+
+        $(document).ready(function ()  // document → anything in the body called document
+        {
+            $("#btnMSG").click(function () {
+                if ($("#txt").val() != "") {
+                    var h1Data = $("#h").html();
+                    $("#h").html(h1Data + "<br>" + $("#txt").val());
+                    $("#txt").css("border", "none");
+                    $("lable").remove();
+                }
+
+                else { 
+                    if ($("lable").val() != "")
+                    {
+
+                    $("#txt").css("border", "1px solid red");
+                    $("#txt").after("<lable> Required Field ! </lable>");
+                    $("#label").css("color","red")
+
+                    }
+                }
+            });
+
+
+            $("#hide").click(function () {
+                $("h2").hide(3000);
+            });
+
+            $("#show").click(function () {
+                $("h2").show();
+            });
+
+            $("#toggle").click(function () {
+                $("h2").toggle();
+            });
+
+            $("#fadein").click(function () {
+                $("h2").fadeIn();
+            });
+
+            $("#fadeout").click(function () {
+                $("h2").fadeOut();
+            });
+
+            $("#fadetoggle").click(function () {
+                $("h2").fadeToggle(3000);
+            });
+
+
+            $("select").change(function () {
+                if ($(this).val() == "ensable") {
+                    $("#txt").prop("disabled", false);
+                }
+                else if ($(this).val() == "disable") {
+                    $("#txt").prop("disabled", true);
+                }
+                else if ($(this).val() == "msg") {
+                    alert($("#txt").val());
+                }
+
+            });
+
+
+
+
+
+
+
+        });
+    
+   
+    
+    
+    
+    </script>
+}
+ *@
