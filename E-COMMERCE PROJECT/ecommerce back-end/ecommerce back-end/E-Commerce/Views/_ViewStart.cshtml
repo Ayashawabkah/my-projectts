@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@*
+
+<div>
+
+    <div style="margin-bottom: 20px;">
+
+        <input id="btn" type="button" value="Admin" class="btn btn-primary" />
+
+    </div>
+
+    @*<span style=“display:bloc;margin-top: 50px;”></span>*@
+
+    @*<div stlye="margin-top: 20px;">
+
+        <input id="btnn" type="button" value="User" class="btn btn-primary" />
+
+    </div>
+
+
+</div>
+
+
+@section Scripts{
+<script>
+
+        $(document).ready(function () {
+            $("#btn").click(function () {
+
+                window.location.href = "/Categories/Index";
+            });
+        });
+
+
+
+
+
+        $(document).ready(function () {
+            $("#btn").click(function () {
+
+                window.location.href = "/Product/Index";
+            });
+        });
+
+
+</script>
+}
+
+*@

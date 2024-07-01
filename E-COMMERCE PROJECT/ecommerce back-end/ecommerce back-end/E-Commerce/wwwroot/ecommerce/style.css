@@ -1,0 +1,22 @@
+.bg-light{
+    background-color: #9f94bef5 !important;
+
+    box-shadow: 6px 1px 14px 0px !important;
+}
+
+.nav-link{
+    color: #044b85  !important;
+}
+
+
+.fa-solid{
+    color: white(96, 167, 214);
+    font: 30px ;
+    margin: 10px ;
+}
+
+
+.card-text{
+    text-align: center;
+}
+  

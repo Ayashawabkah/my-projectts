@@ -1,0 +1,73 @@
+﻿@model IEnumerable<E_Commerce.Models.Category>
+
+    
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_FrontCLayout.cshtml";
+}
+
+<h1>Categories</h1>
+
+
+
+
+
+
+
+<!--========Cards========-->
+<div class="container-fluid main-cont">
+    <div class="row news-row">
+        <div class="container-fluid col-md-12 col-sm-6 justify-content-center news-block">
+            <div class="card-group">
+                @foreach(var item in Model)
+                {
+                    <div class="underlay">
+                        <div class="card">
+                            <div class="card-img-top" style="background-image: url('https://i.imgur.com/wLMJQPH.png')"></div>
+
+                            <div class="card-block">
+                                <a asp-action="GetProductByCategory" asp-controller="Home" asp-route-id="@item.Id">
+                                     <h5 class="card-title" style="font-family: 'Anton', sans-serif">@item.Name <hr /> </h5>
+                                </a>
+                               
+
+
+
+
+                                <p class="card-text">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </p>
+
+
+
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+               
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*
+
+@section Scripts{
+    <script>
+
+
+       
+
+
+
+
+    </script>
+}*@
